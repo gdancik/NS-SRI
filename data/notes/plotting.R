@@ -1,17 +1,21 @@
+##########################################################################
+## Generating plots in R using ggplot
+##########################################################################
 
 ##########################################################################
 ## a data.frame is a table (like a matrix) where columns
 ## can be accessed by name (like a list) and where
-## columns can be of different types
-## data.frames are the standard storage object for use in data analysis
+## columns can be of different types. Data.frames are the standard 
+## storage object for use in data analysis
 ##########################################################################
 
-# the iris dataset is an example data.frame
-#View(iris)
+# the iris dataset (one of many built-in datasets in R) gives an 
+# example of a data.frame
+View(iris)
 head(iris)
 
-# a data.frame is stored as a list, where each column is an element of the list
-# therefore, we have three ways of accessing a column:
+# Since a data.frame is stored like a list, where each column is an element
+# of the list,we have three ways of accessing a column:
 iris$Species
 iris[['Species']]
 iris[[5]]
@@ -94,8 +98,8 @@ ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status, weight = 1/length(
 # Construct a Pareto chart to show bars from tallest to shortest
 ##################################################################
 
-# the data is stored as a 'factor', which are categorical values.
-# by default, these levels are ordered alphabetically
+# the class status data is stored as a 'factor', which is a categorical value. 
+# By default, these levels are ordered alphabetically
 d.status$status
 levels(d.status$status)
 
@@ -134,5 +138,10 @@ table(status) / length(status) #relative frequency (proportions)
 ###########################################################################
 
 ggplot(iris, aes(Species, Petal.Length, fill = Species)) + geom_boxplot() +
-  ggtitle("Petal Length for Iris Species") +
+  ggtitle("Petal Length for Different Species in the Iris Dataset") +
   theme_classic() + theme(legend.position = "none")
+
+ggplot(iris, aes(Species, Petal.Length, fill = Species)) + geom_boxplot() +
+  ggtitle("Petal Length for Different Species in the Iris Dataset") +
+  theme_classic() + theme(legend.position = "none")
+

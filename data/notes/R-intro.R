@@ -14,6 +14,7 @@
 7*9
 sqrt(64)
 
+
 # The assignment operator ("<-" or "=") is used to assign a value to an object. 
 
 x <- 14  # x = 14 will do the same thing
@@ -23,8 +24,8 @@ num <- x / y
 name <- "Bob" # you can use single or double quotes, e.g., name = 'Bob'
 
 
-# A fundamental type of variable in R is a vector (like a 1D array), for storing
-# multiplve values of the same type
+# A fundamental type of object in R is a vector (like a 1D array), for storing
+# multiple values of the same type
 ages <- c(19,20,24, 22, 18)
 
 # how many ages do we have?
@@ -78,7 +79,7 @@ names <- c("Bob", "Lynn")
 
 x1 <- 1:10  # integers 1 through 10
 x2 <- 20:10 # integers 20 through 10
-x3 <- seq(1,10,by=2) ## integers 1,3,5,7,9
+x3 <- seq(1,10,by=2) # integers 1,3,5,7,9
 x4 <- rep(-7, 20) ## a vector containing 20 values of -7
 
 ###########################################################################
@@ -277,8 +278,5 @@ getwd()
 ################################################################################
 
 ##############################################################################
-## Follow instructions to Create an HTML notebook 
+## File -> Knit Document can be used to create an HTML notebook
 ################################################################################
-
-
-
