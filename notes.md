@@ -9,5 +9,6 @@ exclude_from_nav: false
 * [Plotting in R]({{ site.baseurl }}/data/notes/plotting.R)
 * [Advanced R concepts]({{ site.baseurl }}/data/notes/AdvancedR.R)
 * [Strings in R]({{ site.baseurl }}/data/notes/strings.R)
+* [inconceivable]({{ site.baseurl }}/data/notes/inconceivable.R)
 {% comment %}
 {% endcomment %}
