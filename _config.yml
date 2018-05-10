@@ -14,3 +14,5 @@ baseurl: "/NS-SRI"
 markdown: kramdown
 timezone: America/New_York
 course: Network Science Summer Research Institute
+
+theme: jekyll-theme-tactile
