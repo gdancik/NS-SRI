@@ -156,6 +156,9 @@ grep("\\b.*\\b\\s\\b.{8,}\\b", strings, value = TRUE)
 
 # (4) find strings containing words that include a 'c' and an 's' in any order.
 
+# (5) Find all strings containing all uppercase words in the words vector
+words <- c("HELLO", "Hi", "heLLo", "bye", "BYE", "Good Bye", "look AT this")
+
 
 ########################################################################
 # We can retreive the matching pattern (rather than the entire string)
@@ -177,6 +180,7 @@ str_extract_all(strings, "\\b.{5,}\\b")
 
 # extract words (alphanumeric) that are at least 5 characters long
 str_extract_all(strings, "\\b\\w{5,}\\b")
+
 
 
 ########################################################################
