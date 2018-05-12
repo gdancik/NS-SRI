@@ -23,14 +23,12 @@ cat(script, sep = "\n")
 ##################################################################
 
 # keep lines with uppercase text in middle
-pattern <- "\\s{10,}[[:upper:]]+$"
+pattern <- "\\s{10,}([[:upper:]])+$"
 characters <- grep(pattern, script, value = TRUE)
 unique(characters)
 
-pattern <- "\\s{10,}[[:upper:]]+ *[[:upper:]]+$"
-pattern <- "\\s{10,}([[:upper:]]+ ?)+$"
-
 # But are we missing anybody? How can we correct this?
+pattern <- "\\s{10,}([[:upper:]]+ ?)+$"
 characters <- grep(pattern, script, value = TRUE)
 unique(characters)
 

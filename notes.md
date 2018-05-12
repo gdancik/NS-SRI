@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Material 
+title: Notes and Examples 
 permalink: /notes/
-order: 2
+order: 1
 exclude_from_nav: false
 ---
 * [Introduction to R]({{ site.baseurl }}/data/notes/R-intro.R)

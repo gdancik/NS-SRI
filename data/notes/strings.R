@@ -2,6 +2,8 @@
 # An overview of working with strings in R
 ###############################################################
 
+library(stringr) # needed for str_extract_all
+
 #concatenate and print
 x = 4
 cat("x =", x, "at this time") 
@@ -63,7 +65,6 @@ match(c("network science", "summer", "summer 2018"), strings)
 
 c("network science", "summer", "summer 2018") %in% strings
 
-
 # grep returns the index or vector of indices for where a pattern is found
 # in a vector of strings
 grep("network", strings)
@@ -72,7 +73,7 @@ grep("network", strings)
 # the position where the pattern is found
 grepl("network", strings)
 
-# Use grep with value = TRUE to return the matching string and not the index
+# Use grep with value = TRUE to return the matching string instead of the index
 grep("network", strings, value = TRUE)
 
 
@@ -99,20 +100,26 @@ grep("network", strings, value = TRUE)
 #   - [[:upper:]] matches any uppercase character, [[A-Z]]
 #   - [[:space:]] or \\s matches any space, tab, or newline
 #   - [^[:space:]] or \\S matches any non-space, tab or newline character
-#   - [[:alnum:]] or \\w matches any 'word' characters (use \\W for negation)
+#   - \\w matches any 'word' characters [A-z0-9_] (use \\W for negation)
 
 # Quantifiers which apply to the previous character or group of 
 # characters
-#   - a asterisk ('*') matchese 0 or more times
+#   - an asterisk ('*') matches 0 or more times
 #   - a plus sign ('+') matches 1 or more times
-#   - a question mark ('?') matches at most one time
 #   - braces of the form {n}, {n,m}, {n,}, {,m} match exactly 'n' times,
 #     between 'n' and 'm' times, 'at least 'n' times, and no more than 'm'
 #     times, respectively
+#   - a question mark ('?') matches at most one time, and can also be 
+#     placed after any quantifier for 'lazy' evaluation
+
+
 
 # For more details, see: 
 #   https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
 ##############################################################################
+
+# strings that contain "network"
+grep("network", strings, value = TRUE)
 
 # strings that begin with "network"
 grep("^network", strings, value = TRUE)
@@ -129,23 +136,21 @@ grep("network|computer", strings, value = TRUE)
 # strings that contain one or more digits
 grep("[[:digit:]]", strings, value = TRUE)
 
-# strings two alphabetical characters separated by a space
+# strings that contain two alphabetical characters separated by a space or newline
 grep("[[:alpha:]][[:space:]][[:alpha:]]", strings, value = TRUE)
 grep("[[:alpha:]]\\s[[:alpha:]]", strings, value = TRUE)
 
 # strings containing 7 characters, followed by a blank space and "science"
 grep(".{7} science", strings, value = TRUE)
 
-# strings containing a word at least 8 characters long
-grep("\\b.{8,}\\b", strings, value = TRUE)
-
-# strings where any word other than the first is at least 8 characters
-grep("\\b.*\\b\\s\\b.{8,}\\b", strings, value = TRUE)
+# strings containing any word that is at least 8 characters long
+# (where word must contain alphabetical characters only)
+grep("\\b[[:alpha:]]{8,}\\b", strings, value = TRUE)
 
 
 ########################################################################
 # Exercises - use 'grep' and the appropriate regular expression to 
-# identify the following from the vector strings
+# identify the following from the vector 'strings'
 ########################################################################
 
 # (1) find strings containing the letter 'e'. 
@@ -157,17 +162,16 @@ grep("\\b.*\\b\\s\\b.{8,}\\b", strings, value = TRUE)
 # (4) find strings containing words that include a 'c' and an 's' in any order.
 
 # (5) Find all strings containing all uppercase words in the words vector
-words <- c("HELLO", "Hi", "heLLo", "bye", "BYE", "Good Bye", "look AT this")
-
+words <- c("HELLO", "Hi", "HI THERE", "heLLo", "bye", "BYE", "Good Bye", "look AT this")
 
 ########################################################################
 # We can retreive the matching pattern (rather than the entire string)
 # by using 'str_extract_all' from the 'stringr' package
 ########################################################################
 
-library(stringr)
 
-# strings containing two characters separted by a space
+
+# strings containing two characters separated by a space
 grep("[[:alpha:]]\\s[[:alpha:]]", strings, value = TRUE)
 
 # extract patterns only; note that the string is specified first, and 
@@ -180,6 +184,20 @@ str_extract_all(strings, "\\b.{5,}\\b")
 
 # extract words (alphanumeric) that are at least 5 characters long
 str_extract_all(strings, "\\b\\w{5,}\\b")
+
+
+
+##################################################################################
+# Greedy vs. lazy evaluation: regular expressions are greedy by default 
+# (they find the longest string matching the pattern). A question mark can be
+# used for lazy evaluation, which finds the shortest string matching the pattern
+##################################################################################
+
+# Find the first sentence that ends in a period (incorrect because of greedy evaluation)
+str_extract_all("This is the first sentence. This is the second sentence.", "^.*\\.")
+
+# Find the first sentence that ends in a period (correct, uses lazy evaluation)
+str_extract_all("This is the first sentence. This is the second sentence.", "^.*?\\.")
 
 
 
