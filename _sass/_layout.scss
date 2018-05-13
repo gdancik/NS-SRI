@@ -11,7 +11,7 @@
 }
 
 .site-title {
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 300;
     line-height: 56px;
  //   margin-bottom: 0;
@@ -21,6 +21,10 @@
     &:visited {
         color: $grey-color-dark;
     }
+}
+
+.site-title a:visited{
+    color: yellow;
 }
 
 .site-nav {
