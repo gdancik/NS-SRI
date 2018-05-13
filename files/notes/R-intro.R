@@ -5,9 +5,9 @@
 
 # This is a comment
 
-##########################################
+#################################################
 ## R Basics: expressions, variables, and vectors
-##########################################
+#################################################
 
 # R can be used like a calculator
 7+10
@@ -18,6 +18,8 @@ sqrt(64)
 # The assignment operator ("<-" or "=") is used to assign a value to an object. 
 
 x <- 14  # x = 14 will do the same thing
+x # print an object
+
 y <- 21
 total <- x+y
 num <- x / y
@@ -26,7 +28,7 @@ name <- "Bob" # you can use single or double quotes, e.g., name = 'Bob'
 
 # A fundamental type of object in R is a vector (like a 1D array), for storing
 # multiple values of the same type
-ages <- c(19,20,24, 22, 18)
+ages <- c(19,20,24, 22, 20)
 
 # how many ages do we have?
 length(ages)
@@ -53,8 +55,9 @@ ages[-(1:2)]   ## note that ages[-1:2] is not correct. Why??
 # a logical vector contains TRUE/FALSE values
 ages > 20
 
-# the brackets can be used to specify the indices (positions) of values to retreive,
-# or for speciying a logical vector to retrieve positions that are TRUE
+# brackets can be used to indicate the desired indices (positions) of values in a
+# vector, as above, or according to a logical vector for retreiving positions that 
+# are TRUE
 
 # example: what are the ages greater than 20?
 index <- ages > 20
@@ -72,8 +75,24 @@ index1 <- ages >= 20
 index2 <- ages <= 23
 cbind("age>=20"=index1, "age<=23"=index2, "age is 20-23" = index1 & index2)
 
+# Logical operators:
+#   ==, is equal to
+#   !=, not equal to
+#   !, not operator
+#   >, greater than 
+#   >=, greater than or equal to
+#   <, less than
+#   <=, less than or equal to
+
+
 # another vector example
 names <- c("Bob", "Lynn")
+
+# the assignment operator can be used to simultaneously change several values 
+x <- 1:5
+x[c(1,5)] # look at the 1st and 5th element
+x[c(1,5)] <- 0 # change the 1st and 5th element to 0
+x
 
 # Additional ways of creating vectors
 
@@ -84,12 +103,14 @@ x4 <- rep(-7, 20) ## a vector containing 20 values of -7
 
 ###########################################################################
 ## Question set A
-## 1. Create a vector of all integers 1 through 100
-## 2. Create a vector of all even integers between 50 and 100 (inclusive)
-##  2a. How many even integers are there between 50 and 100 (inclusive)?
-##  2b. What is the sum of the 3rd and 19th even integer 
+## 1. How many ages are equal to 20 (use R to find this value)
+## 2. Create a vector of all integers 1 through 100
+## 3. Create a vector of all even integers between 50 and 100 (inclusive)
+##  3a. How many even integers are there between 50 and 100 (inclusive)?
+##  3b. What is the sum of the 3rd and 19th even integer 
 ##      between 50 and 100?
 ###########################################################################
+
 
 # To get help on a command, use the question mark (?) or
 # the help.search command, e.g.,
@@ -155,7 +176,7 @@ cbind(x,y)
 ans.add <- x+y  
 
 
-### additional calculations 
+### additional operations for vectors (or matrices)
 x <- 1:10
 sum(x)
 min(x)
@@ -213,11 +234,10 @@ m2 <- cbind(1:10, 10:1)
 m2
 
 
-
 #############################################################################
 ## Question set C
-## 1. Change the value of the observation in the 2nd row and 3rd 
-##  column to 5
+## 1. For the matrix 'm', change the value of the observation in the 2nd row
+#     and 3rd column to 5
 ## 2. Create a matrix with 2 columns, the first containing 
 ##    odd numbers between 1-10 and the 2nd containing even
 ##    numbers between 1-10. 
@@ -280,3 +300,5 @@ getwd()
 ##############################################################################
 ## File -> Knit Document can be used to create an HTML notebook
 ################################################################################
+
+

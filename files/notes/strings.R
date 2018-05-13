@@ -22,7 +22,7 @@ cat(string)
 
 # newlines are not added by default 
 for (i in 1:3) {
-  cat(i)  # you probably want to use cat(i,"\) instead
+  cat(i)  # you probably want to use cat(i,"\n") instead
 }
 
 # paste is used to concatenate vectors into a single character string
@@ -49,9 +49,9 @@ paste(abc, collapse = "")
 strings <- c("network science", "computer science", "biology", 
              "computers", "computer networks", "computers", "summer 2018", "science")
 
-# match looks for an exact match of a string in a vector, and returns the index
-# of where the FIRST exact match is found; an NA is returned if there
-# is no match
+# match looks for an exact match of a string in a vector of strings, and 
+# returns the index of where the FIRST exact match is found; an NA is 
+# returned if there is no match
 match("computers", strings)   # only first occurence is identified
 match("computer", strings)    # no exact matches, NA is returned
 
@@ -66,7 +66,7 @@ match(c("network science", "summer", "summer 2018"), strings)
 c("network science", "summer", "summer 2018") %in% strings
 
 # grep returns the index or vector of indices for where a pattern is found
-# in a vector of strings
+# in a vector of strings (unlike 'match', 'grep' returns multiple matches)
 grep("network", strings)
 
 # grepl is the same as 'grep' but returns a logical vector containing TRUE in 
@@ -101,6 +101,7 @@ grep("network", strings, value = TRUE)
 #   - [[:space:]] or \\s matches any space, tab, or newline
 #   - [^[:space:]] or \\S matches any non-space, tab or newline character
 #   - \\w matches any 'word' characters [A-z0-9_] (use \\W for negation)
+#   - parentheses () are used for grouping
 
 # Quantifiers which apply to the previous character or group of 
 # characters
@@ -136,6 +137,12 @@ grep("network|computer", strings, value = TRUE)
 # strings that contain one or more digits
 grep("[[:digit:]]", strings, value = TRUE)
 
+
+# strings that contain one or more digits or the word computer
+# Note that parentheses are used for grouping
+grep("([[:digit:]])|(\\bcomputer\\b)", strings, value = TRUE)
+
+
 # strings that contain two alphabetical characters separated by a space or newline
 grep("[[:alpha:]][[:space:]][[:alpha:]]", strings, value = TRUE)
 grep("[[:alpha:]]\\s[[:alpha:]]", strings, value = TRUE)
@@ -161,15 +168,14 @@ grep("\\b[[:alpha:]]{8,}\\b", strings, value = TRUE)
 
 # (4) find strings containing words that include a 'c' and an 's' in any order.
 
-# (5) Find all strings containing all uppercase words in the words vector
+# (5) Find all strings containing ONLY all uppercase words in the words vector
 words <- c("HELLO", "Hi", "HI THERE", "heLLo", "bye", "BYE", "Good Bye", "look AT this")
 
-########################################################################
+############################################################################
 # We can retreive the matching pattern (rather than the entire string)
-# by using 'str_extract_all' from the 'stringr' package
-########################################################################
-
-
+# by using 'str_extract_all' from the 'stringr' package. 'str_extract_all'
+# returns a list with each element a vector of matching patterns
+############################################################################
 
 # strings containing two characters separated by a space
 grep("[[:alpha:]]\\s[[:alpha:]]", strings, value = TRUE)
@@ -186,19 +192,20 @@ str_extract_all(strings, "\\b.{5,}\\b")
 str_extract_all(strings, "\\b\\w{5,}\\b")
 
 
-
 ##################################################################################
 # Greedy vs. lazy evaluation: regular expressions are greedy by default 
-# (they find the longest string matching the pattern). A question mark can be
-# used for lazy evaluation, which finds the shortest string matching the pattern
+# (they find the longest string that matches the specified pattern). A question 
+# mark (?) can be used after a quantifier for lazy evaluation, which finds the 
+# shortest string that matches the pattern instead
 ##################################################################################
 
 # Find the first sentence that ends in a period (incorrect because of greedy evaluation)
+# Note: the actual period is specified using "\\.", because "." already has a 
+# special meaning
 str_extract_all("This is the first sentence. This is the second sentence.", "^.*\\.")
 
 # Find the first sentence that ends in a period (correct, uses lazy evaluation)
 str_extract_all("This is the first sentence. This is the second sentence.", "^.*?\\.")
-
 
 
 ########################################################################

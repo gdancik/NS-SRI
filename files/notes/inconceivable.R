@@ -10,19 +10,19 @@ library(tm) # needed for stopwords
 library(ggplot2)
 
 # use readLines to return a character vector (each element is a line in the file)
-script <- readLines("https://raw.githubusercontent.com/gdancik/NS-SRI/master/data/notes/PrincessBride.txt")
+script <- readLines("https://gdancik.github.io/NS-SRI/files/PrincessBride.txt")
 cat(script, sep = "\n")
 
 
 # Note: you will need to 'manually' look through the script to understand 
 # the format. In general, names of characters are written in all upper-case,
-# and dialogue is centered on the screen
+# and dialogue is centered
 
 ##################################################################
 # Get a list of characters with speaking roles
 ##################################################################
 
-# keep lines with uppercase text in middle
+# keep lines with uppercase text that is roughly centered
 pattern <- "\\s{10,}([[:upper:]])+$"
 characters <- grep(pattern, script, value = TRUE)
 unique(characters)
@@ -32,9 +32,9 @@ pattern <- "\\s{10,}([[:upper:]]+ ?)+$"
 characters <- grep(pattern, script, value = TRUE)
 unique(characters)
 
-# to ensure we are getting character headings for speaking parts, take only
-# matches where the previous line is blank
-# line should be blank ("")
+# to ensure we are getting character headings for speaking parts, 
+# let's keep only those character headings where the previous 
+# line is line blank ("")
 
 i <- grep(pattern, script)  # get index for current matches
 keep <- script[i-1] == ""   # get logical vector for matches where previous line is blank
@@ -44,21 +44,32 @@ characters <- characters[keep] # keep strings that follow a blank line
 
 # summarize the number of speaking parts for each character -- can you
 # generate a barplot of this data?
-table(characters)
+t <- table(characters)
+t
+
+sort(t)
 
 
 ###########################################################################
 # Now let's print out script, highlighting scene changes with lines ending
-# with "CUT TO:" or lines beginning with any number upper case words, as
+# with "CUT TO:" or lines beginning with any number of upper case words, as
 # specified by:
-#   ^ - beginning of string
-#   \\b - start and end of a word boundary (alpha)
-#   [A-Z] any uppercase letter
-#   [A-Z]+ any sequence of uppercase letters
-# Note that different movie scripts may have slightly different formats
+#   "^[[:upper:]] - the string must begin with an uppercase letter
+#   "[[:upper:]]? - 0 or 1 upper case letters
+#   "[[:punct:]]? - 0 or 1 punctuation characters
+#   " ?"          - 0 or 1 spaces
+#   "^[[:upper:]]?[[:punct:]]? ?)+$" - entire string contains any combination of 
+#           upper case letters, punctuation, spaces, and must start with 
+#           an upper case letter
+# 
+# # Note that different movie scripts may have different formats
 ###########################################################################
+
+pattern1 <- "(CUT TO:$)"
+pattern2 <- "(^[[:upper:]]([[:upper:]]?[[:punct:]]? ?)+$)"
+pattern<- paste0(pattern1, "|", pattern2)
 for (line in script) {
-  g <- grep("(CUT TO:$)|(^\\b[A-Z]+\\b)", line)
+  g <- grep(pattern, line)
   if (length(g) > 0) {
     message(line) # prints text in red
   } else {
@@ -94,9 +105,11 @@ vizzini <- vizzini[[1]] # 1st element of list contains the matches
 # print out each spoken part
 cat(vizzini)
 
-# we don't care about "VIZZINI", so can gsub which is a "find" and "replace" function 
+# we don't care about the "VIZZINI" label, so can replace this using 'gsub',
+# which is a "find" and "replace" function 
 vizzini <- gsub("\n\ {10,}VIZZINI\n", "", vizzini)
 
+# for each set of dialgoue, get vector of words
 words <- word_tokenizer(tolower(vizzini))
 
 # use 'unlist' to collapse a list of elements into a single 'vector'
@@ -132,20 +145,19 @@ keep <- df$Freq >= 2
 wordcloud2(df[keep,], size = .5)  
 
 
-
 #################################################################
 # Carry out a sentiment analysis for VIZZINI's dialogue
 #################################################################
 
-# sentiment calculates the sentiment for each sentence in a vector
-# scores > 0 are considered positive; scores < 0 are considered negative
+# sentiment calculates a sentiment score for each sentence in a vector, where
+# scores > 0 are considered positive and scores < 0 are considered negative
 sentiment("You are the best")
 sentiment("You are an idiot")
-sentiment("Look at that dog. Isn't it cute?")
+sentiment("Look at that dog. So cute!")
 
 # sentiment_by will group sentences together
 # (by default, sentences within a string are grouped together)
-sentiment_by("Look at that dog. Isn't it cute?")
+sentiment_by("Look at that dog. So cute!")
 
 
 # use sentiment_by to find the sentiment of each section of dialogue
@@ -159,7 +171,7 @@ vizzini[i]
 i <- which.max(s$ave_sentiment)
 vizzini[i]
 
-# highlight sentences by sentiment polarity. will create and open the file
+# highlight sentences by sentiment polarity. This will create and open the file
 # polarity.html
 highlight(s)
 

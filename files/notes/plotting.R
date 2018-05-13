@@ -2,6 +2,8 @@
 ## Generating plots in R using ggplot
 ##########################################################################
 
+library(ggplot2)
+
 ##########################################################################
 ## a data.frame is a table (like a matrix) where columns
 ## can be accessed by name (like a list) and where
@@ -15,7 +17,7 @@ View(iris)
 head(iris)
 
 # Since a data.frame is stored like a list, where each column is an element
-# of the list,we have three ways of accessing a column:
+# of the list, we have three ways of accessing a column:
 iris$Species
 iris[['Species']]
 iris[[5]]
@@ -33,8 +35,6 @@ plot(iris$Petal.Width, iris$Petal.Length, pch = 18,
      xlab = "Petal Width", ylab = "Petal Length",
      main = "Petal Length vs. Petal Width from Iris dataset")
 
-# Now generate similar scatterplots using ggplot
-library(ggplot2)
 
 ####################################################################
 # ggplot examples -- we will generally use this format
@@ -85,14 +85,16 @@ status <- c("freshman", "freshman", "sophomore", "sophomore", "junior", "sophomo
 d.status <- data.frame(status = status) # need to create data.frame
 ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status)) +
   ggtitle("Class status of students") +
-  labs(x = "Class status", y = "Frequency") + theme_classic()
+  labs(x = "Class status", y = "Frequency") + theme_classic() +
+  theme(legend.position = "none")
 
 
 # set weight = 1 / n, where n = the number of observations, to plot relative
 # frequencies
 ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status, weight = 1/length(status))) +
   ggtitle("Class status of students") +
-  labs(x = "Class status", y = "Relative frequency") + theme_classic()
+  labs(x = "Class status", y = "Relative frequency") + theme_classic() +
+  theme(legend.position="none")
 
 ##################################################################
 # Construct a Pareto chart to show bars from tallest to shortest
@@ -109,25 +111,30 @@ status <- factor(status, levels = c("freshman", "sophomore", "junior", "senior")
 d.status <- data.frame(status)
 ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status)) +
   ggtitle("Class status of students") +
-  labs(x = "Class status", y = "Frequency") + theme_classic()
+  labs(x = "Class status", y = "Frequency") + theme_classic() + 
+  theme(legend.position = "none")
 
-# change the order for a Pareto chart (bars will be ordered from highest (most frequent)
-# to lowest (least frequent)
+# change the order for a Pareto chart where bars are ordered from highest 
+# (most frequent) to lowest (least frequent)
 counts <- table(status)
 sorted.counts <- sort(counts, decreasing = TRUE)
 status <- factor(status, levels = names(sorted.counts))
 d.status <- data.frame(status)
 ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status)) +
   ggtitle("Class status of students") +
-  labs(x = "Class status", y = "Frequency") + theme_classic()
+  labs(x = "Class status", y = "Frequency") + theme_classic() +
+  theme(legend.position = "none")
 
 
 #################################################
 # frequency table and relative frequency tables #
-# when there are NO missing values
 #################################################
-table(status) # frequency table
-table(status) / length(status) #relative frequency (proportions) 
+
+# frequency table
+table(status) 
+
+#relative frequency (proportions), but is not correct if status contains missing values
+table(status) / length(status) 
 
 
 ###########################################################################
@@ -136,10 +143,6 @@ table(status) / length(status) #relative frequency (proportions)
 # 50% of the data
 # boxplot: ggplot(data, aes(x,y,fill)) + geom_boxplot(aes(color = color))
 ###########################################################################
-
-ggplot(iris, aes(Species, Petal.Length, fill = Species)) + geom_boxplot() +
-  ggtitle("Petal Length for Different Species in the Iris Dataset") +
-  theme_classic() + theme(legend.position = "none")
 
 ggplot(iris, aes(Species, Petal.Length, fill = Species)) + geom_boxplot() +
   ggtitle("Petal Length for Different Species in the Iris Dataset") +
