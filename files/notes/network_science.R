@@ -6,18 +6,19 @@ library(readxl)
 library(igraph)
 
 # Let's import the adjacency matrix from:
-# https://github.com/gdancik/NS-SRI/blob/master/data/notes/PrincessBrideAdjacency.xlsx?raw=true
+# https://gdancik.github.io/NS-SRI/files/PrincessBrideAdjacency.xlsx
 
 
 # Note: you can get this code by using the Import Dataset wizard
 # from the Environment panel, and importing the code from the 
 # History panel
-url <- "https://gdancik.github.io/NS-SRI/files/PrincessBrideAdjacency.xlsx?raw=true"
+url <- "https://gdancik.github.io/NS-SRI/files/PrincessBrideAdjacency.xlsx"
 destfile <- "A.xlsx"
 download.file(url, destfile)
 A <- read_excel(destfile)
 
 # how many interactions were there between BUTTERCUP and WESTLEY?
+
 
 # we will remove the first column, which contains the character names
 A <- A[,-1]

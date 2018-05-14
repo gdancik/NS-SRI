@@ -166,9 +166,13 @@ grep("\\b[[:alpha:]]{8,}\\b", strings, value = TRUE)
 
 # (3) find strings containing words that begin with a 'c' and end with an 's'
 
-# (4) find strings containing words that include a 'c' and an 's' in any order.
-
-# (5) Find all strings containing ONLY all uppercase words in the words vector
+# (4) (a) find strings containing words that include a 'c' and an 's' any where in the word
+#          (assume the 'c' comes before the 's') (Hint: recall that '\\w' is a word character)
+#      (b) find strings containing words that include a 's' and an 'c' any where in the word
+#          (assume the 's' comes before the 'c')
+#      (c) find strings containing words containing an 's' or a 'c' in any order
+# (5) Find all strings containing ONLY all uppercase words in the words vector (Note: use
+#     [[:upper:]] to match a single uppper case letter, and [[:space:]] to match a space)
 words <- c("HELLO", "Hi", "HI THERE", "heLLo", "bye", "BYE", "Good Bye", "look AT this")
 
 ############################################################################

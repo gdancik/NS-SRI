@@ -54,13 +54,13 @@ sort(t)
 # Now let's print out script, highlighting scene changes with lines ending
 # with "CUT TO:" or lines beginning with any number of upper case words, as
 # specified by:
-#   "^[[:upper:]] - the string must begin with an uppercase letter
-#   "[[:upper:]]? - 0 or 1 upper case letters
-#   "[[:punct:]]? - 0 or 1 punctuation characters
+#   "^[[:upper:]]" - the string must begin with an uppercase letter
+#   "[[:upper:]]?" - 0 or 1 upper case letters
+#   "[[:punct:]]?" - 0 or 1 punctuation characters
 #   " ?"          - 0 or 1 spaces
-#   "^[[:upper:]]?[[:punct:]]? ?)+$" - entire string contains any combination of 
-#           upper case letters, punctuation, spaces, and must start with 
-#           an upper case letter
+#   "^[[:upper:]][[:upper:]]?[[:punct:]]? ?)+$" - entire string contains any 
+#           combination of upper case letters, punctuation, spaces, and 
+#           must start with an upper case letter
 # 
 # # Note that different movie scripts may have different formats
 ###########################################################################
