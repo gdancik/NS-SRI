@@ -9,8 +9,8 @@ exclude_from_nav: false
 * [Installing Packages]({{ site.baseurl }}/files/notes/packages.R)
 * [Plotting in R]({{ site.baseurl }}/files/notes/plotting.R)
 * [Advanced R concepts]({{ site.baseurl }}/files/notes/AdvancedR.R)
-{% comment %}
-* [Networks in R]({{ site.baseurl }}/files/notes/network_science.R)
 * [Strings in R]({{ site.baseurl }}/files/notes/strings.R)
-* [inconceivable]({{ site.baseurl }}/files/notes/inconceivable.R)
+* [Inconceivable]({{ site.baseurl }}/files/notes/inconceivable.R)
+* [Networks in R]({{ site.baseurl }}/files/notes/network_science.R)
+{% comment %}
 {% endcomment %}
