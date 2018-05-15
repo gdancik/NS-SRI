@@ -5,17 +5,15 @@
 library(readxl)
 library(igraph)
 
-# Let's import the adjacency matrix from:
+# Let's download the adjacency matrix from:
 # https://gdancik.github.io/NS-SRI/files/PrincessBrideAdjacency.xlsx
 
+# if applicable, change the code below to specify the path and file name of the adjacency matrix
+file <- "Z:/PrincessBrideAdjacency.xlsx"
 
-# Note: you can get this code by using the Import Dataset wizard
-# from the Environment panel, and importing the code from the 
-# History panel
-url <- "https://gdancik.github.io/NS-SRI/files/PrincessBrideAdjacency.xlsx"
-destfile <- "A.xlsx"
-download.file(url, destfile)
-A <- read_excel(destfile)
+# Note: you can get the code below by using the Import Dataset wizard
+# from the Environment panel, and inserting the code from the history panel
+A <- read_excel(file)
 
 # how many interactions were there between BUTTERCUP and WESTLEY?
 
