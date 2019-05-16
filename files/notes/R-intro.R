@@ -23,7 +23,7 @@ x # print an object
 y <- 21
 total <- x+y
 num <- x / y
-name <- "Bob" # you can use single or double quotes, e.g., name = 'Bob'
+name <- 'Bob' # you can use single or double quotes, e.g., name <- "Bob"
 
 
 # A fundamental type of object in R is a vector (like a 1D array), for storing
@@ -33,7 +33,8 @@ ages <- c(19,20,24, 22, 20)
 # how many ages do we have?
 length(ages)
 
-# what is the age of the 2nd individual? Note that unlike C++/Java, indexing begins at 1
+# what is the age of the 2nd individual? Note that unlike Java, 
+# indexing begins at 1
 ages[2]
 
 # What are the ages of individuals 2-4?
@@ -55,21 +56,25 @@ ages[-(1:2)]   ## note that ages[-1:2] is not correct. Why??
 # a logical vector contains TRUE/FALSE values
 ages > 20
 
-# brackets can be used to indicate the desired indices (positions) of values in a
-# vector, as above, or according to a logical vector for retreiving positions that 
-# are TRUE
+# Specific elements of a vector can be accessed using bracket notation 
+# with the corresponding positions (indices) of elements to access (as above); 
+# or by specifying a logical vector which accesses elements where the 
+# corresponding value is TRUE
 
 # example: what are the ages greater than 20?
-index <- ages > 20
+index <- ages > 20   # creates logical vector c(FALSE, FALSE, TRUE, TRUE, FALSE)
 ages[index]    # or alternatively, use ages[ages > 20]
 
 # how many ages are > 20? 
 sum(index) # counts the number of TRUE values (TRUE = 1, FALSE = 0)
 
-# the AND (&) and OR (|) operators perform pairwise comparison between logical values:
-# example: what ages are between 20 and 23 (inclusive)
+# the AND (&) and OR (|) operators perform pairwise comparison between 
+# logical values: example: what ages are between 20 and 23 (inclusive)
+# Note: && and || only compare the first element but allow for
+# short-circuit evaluation. Always use & and | when comparing vectors
+# with length > 1
 keep <- ages >= 20 & ages <= 23
-ages[keep] # same as: ages [ ages > 20 & ages < 23]   
+ages[keep] # same as: ages [ ages >= 20 & ages <= 23]   
 
 index1 <- ages >= 20
 index2 <- ages <= 23
@@ -88,7 +93,8 @@ cbind("age>=20"=index1, "age<=23"=index2, "age is 20-23" = index1 & index2)
 # another vector example
 names <- c("Bob", "Lynn")
 
-# the assignment operator can be used to simultaneously change several values 
+# the assignment operator can be used to simultaneously change several 
+# values 
 x <- 1:5
 x[c(1,5)] # look at the 1st and 5th element
 x[c(1,5)] <- 0 # change the 1st and 5th element to 0
@@ -133,12 +139,13 @@ x <- 1:10
 y <- 4
 
 # Note: we can visualize the vector calculations by creating
-# a matrix combining both vectors; calculations occur across each row 
-cbind(x,y)
+# a matrix combining both vectors ('cbind' is for 'column bind'); 
+cbind(x,y) # single value is repeated for each element of 'x'
 
-ans.add <- x+y  # adds each element of x to y
-ans.multiply <- x*y  # multiplies each element of x by y
-ans.divide <- x / y
+# operations apply to each pair of elements (across each 'row')
+ans.add <- x+y  # adds each element of x (a vector) to y (a single value)
+ans.multiply <- x*y  # multiplies each element of x (a vector) to y (a single value)
+ans.divide <- x / y  # divides each element of x (a vector) by y (a single value)
 
 ##########################################
 ##  when both vectors are the same length
@@ -153,15 +160,15 @@ ans.divide <- x/y  # the nth element of x is divided by the nth element of y
 
 #########################################################
 ## when vectors are of different lengths, 
-## elements in smaller vector are recycled as necessary
-## NOTE: Unlike in other languages, you will not get
-## an error if the vectors are of different lengths
-## You will get a warning if the number of elements in
-## one vector is not a multiple of the number of elements
-## in the other vector
+## elements in the smaller vector are 'recycled' to
+## create two vectors of the same length
+## NOTE: You will NOT get an error if the vectors are 
+## different lengths. You will get a warning, but only if 
+## the number of elements in one vector is not a multiple 
+## of the number of elements in the other vector
 #########################################################
 x <- 1:10
-y <- seq(0,1,length.out = 5)
+y <- 1:5
 cbind(x,y)
 ans.add <- x+y  
 ans.multiply <- x*y  
@@ -170,7 +177,7 @@ ans.divide <- x/y
 ## you will get a warning (but NOT an error) if length(y) is not 
 ## a multiple of length(x)
 x <- 1:10
-y <- seq(0,1,length.out = 5)
+y <- 1:5
 y <- y[-5]   ### the same as y = y[1:4]
 cbind(x,y)
 ans.add <- x+y  
@@ -213,10 +220,6 @@ m[1:2,]
 # get the first column
 m[,1]
 
-# get all information except the last column
-lc = ncol(m)
-m[,-lc] ## you could also use m[,-ncol(m)]
-
 # sum each row
 rowSums(m)
 
@@ -230,6 +233,7 @@ colSums(m)
 m1 <- rbind(1:10, 10:1)
 m1
 
+# cbind will bind consecutive columns:
 m2 <- cbind(1:10, 10:1)
 m2
 
@@ -245,11 +249,11 @@ m2
 
 
 ########################################################
-## lists - a collection of objects that can be accessed
+## list - a collection of objects that can be accessed
 ##    by index or by name
 ########################################################
 
-person <- list(name = "Bob", age = 23, sex = "M")
+person <- list(name = "Bob", age = 23, class = "Soph")
 
 ## how many objects are in person, and what are their names?
 length(person)
@@ -258,10 +262,10 @@ names(person)
 ## access the first object:
 person[[1]]
 
-##access the 2nd object:
+## access the 2nd object:
 person[[2]]
 
-# # access objects by name:
+## access objects by name:
 person[['name']]
 person[['age']]
 
@@ -300,5 +304,3 @@ getwd()
 ##############################################################################
 ## File -> Knit Document can be used to create an HTML notebook
 ################################################################################
-
-

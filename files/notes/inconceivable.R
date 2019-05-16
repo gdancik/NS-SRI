@@ -67,7 +67,7 @@ sort(t)
 
 pattern1 <- "(CUT TO:$)"
 pattern2 <- "(^[[:upper:]]([[:upper:]]?[[:punct:]]? ?)+$)"
-pattern<- paste0(pattern1, "|", pattern2)
+pattern <- paste0(pattern1, "|", pattern2)
 for (line in script) {
   g <- grep(pattern, line)
   if (length(g) > 0) {
@@ -119,7 +119,8 @@ words <- unlist(words)
 t <- table(words)
 sort(t)
 
-# get a logical vector for words to remove
+# remove stopwords, firt get a logical vector for words 
+# to remove
 remove <- words %in% stopwords()
 
 # keep only the words we do NOT want to remove
@@ -159,10 +160,12 @@ sentiment("Look at that dog. So cute!")
 # (by default, sentences within a string are grouped together)
 sentiment_by("Look at that dog. So cute!")
 
+# get sentences from character vector
+g <- get_sentences(vizzini)
 
 # use sentiment_by to find the sentiment of each section of dialogue
-s <- sentiment_by(vizzini)
-
+# note that a 'get_sentences' object is passed to this function
+s <- sentiment_by(g)
 
 # let's look at the lines with the lowest and highest sentiment scores
 i <- which.min(s$ave_sentiment)
@@ -171,20 +174,18 @@ vizzini[i]
 i <- which.max(s$ave_sentiment)
 vizzini[i]
 
-# highlight sentences by sentiment polarity. This will create and open the file
-# polarity.html
+# highlight sentences by sentiment polarity. This will create 
+# and open the file polarity.html
 highlight(s)
 
-file.remove("polarity.html")
-
-interpretScore <- function(x) {
+label_sentiments <- function(x) {
   y <- rep("neutral", length(x))
   y[x > 0.05] <- "positive"
   y[x < -0.05] <- "negative"
   y
 }
 
-sentiments <- interpretScore(s$ave_sentiment)
+sentiments <- label_sentiments(s$ave_sentiment)
 
 df <- data.frame(sentiments)
 

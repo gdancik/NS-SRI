@@ -5,10 +5,10 @@
 library(ggplot2)
 
 ##########################################################################
-## a data.frame is a table (like a matrix) where columns
-## can be accessed by name (like a list) and where
-## columns can be of different types. Data.frames are the standard 
-## storage object for use in data analysis
+## a data.frame is a table that can be treated like a matrix and a list
+## where each column is an element. As a result, columns can be accessed
+## by names and can be different types. Data.frames are the standard 
+## object for data analysis in R
 ##########################################################################
 
 # the iris dataset (one of many built-in datasets in R) gives an 
@@ -56,7 +56,8 @@ plot(iris$Petal.Width, iris$Petal.Length, pch = 18,
 ggplot(iris, aes(x=Petal.Width, y = Petal.Length)) +
       geom_point() + 
       ggtitle("Petal Length vs. Petal Width from Iris dataset") +
-      labs(x = "Petal Width", y = "Petal Length")
+      labs(x = "Petal Width", y = "Petal Length") +
+      theme_bw()
 
 # we can color the points by specifying the color (or colour) aesthetic
 # we can also store the plot in an object and plot later using the
@@ -64,11 +65,11 @@ ggplot(iris, aes(x=Petal.Width, y = Petal.Length)) +
 g = ggplot(iris, aes(x=Petal.Width, y=Petal.Length)) +
   geom_point(aes(color = Species)) +
   ggtitle("Petal Length vs. Petal Width from Iris dataset") +
-  labs(x = "Petal Width", y = "Petal Length")
-print(g)
+  labs(x = "Petal Width", y = "Petal Length") 
+print(g + theme_classic())
 
-# alternative plots with added components
-g + geom_smooth(color = "blue")
+# additional plots with added components
+g + geom_smooth(color = "blue") + theme_classic()
 g + geom_smooth(color = "blue") + theme_linedraw()
 
 
@@ -76,8 +77,8 @@ g + geom_smooth(color = "blue") + theme_linedraw()
 ########################################################################
 # In a bar graph, the height of a bar corresponds to the frequency
 # (number of times) or proportion (relative frequency) for which a 
-# categorical value is observed in the data
-# barchart: ggplot(data, aes(x)) + geom_bar(aes(fill, weight))
+# categorical value is observed 
+# bar graph: ggplot(data, aes(x)) + geom_bar(aes(fill, weight))
 ########################################################################
 
 status <- c("freshman", "freshman", "sophomore", "sophomore", "junior", "sophomore")
@@ -91,7 +92,8 @@ ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status)) +
 
 # set weight = 1 / n, where n = the number of observations, to plot relative
 # frequencies
-ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status, weight = 1/length(status))) +
+ggplot(d.status, aes(x=status)) + 
+  geom_bar(aes(fill = status, weight = 1/length(status))) +
   ggtitle("Class status of students") +
   labs(x = "Class status", y = "Relative frequency") + theme_classic() +
   theme(legend.position="none")
@@ -114,7 +116,7 @@ ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status)) +
   labs(x = "Class status", y = "Frequency") + theme_classic() + 
   theme(legend.position = "none")
 
-# change the order for a Pareto chart where bars are ordered from highest 
+# change the order to create a Pareto chart, where bars are ordered from highest 
 # (most frequent) to lowest (least frequent)
 counts <- table(status)
 sorted.counts <- sort(counts, decreasing = TRUE)
@@ -131,10 +133,11 @@ ggplot(d.status, aes(x=status)) + geom_bar(aes(fill = status)) +
 #################################################
 
 # frequency table
-table(status) 
+t <- table(status) 
+t
 
-#relative frequency (proportions), but is not correct if status contains missing values
-table(status) / length(status) 
+#relative frequency (proportions)
+prop.table(t)
 
 
 ###########################################################################

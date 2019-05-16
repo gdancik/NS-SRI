@@ -3,7 +3,7 @@
 ## that can return a value
 ##################################################
 
-## two arguments ##
+## A function with two arguments ##
 divide <-function(x,y) {
     return(x/y)
 }
@@ -22,12 +22,12 @@ divide(y = 2, 3)  # 3/2 = 1.5
 
 ###################################################
 # return is implicit if the function ends with
-# an expression (but NOT an assignment)
+# an expression or an assignment
 ##################################################
 
 # same divide function as above, with implicit return
 divide <-function(x,y = 1) {
-  x/y
+ x/y
 }
 
 divide(3,2) ## 3/2 = 1.5
@@ -56,13 +56,13 @@ numbers <- c(20,18,6, -10, 4)
 # repeat based on the index of the vector 'x'
 x <- c(1,3,4)
 for (i in 1:length(x)) {
-    cat (x[i])
+    cat(x[i], '\n')
 }
 
 numbers <- c(1,2,5,7)
 # repeat for each value of x
 for (x in numbers) {
-    cat (x) # cat is used for printing
+    cat(x, '\n') # cat is used for printing
 }
 
 ######################################################################
@@ -101,7 +101,7 @@ ans.col
 ans.row.4 <- apply(m, 1, add.smallest, n = 4)
 ans.row.4
 
-## alternative using an inline function
+## alternative using an inline (anonymous) function
 ans.row <- apply(m, 1, function(x) sum(sort(x)[1:2]))
 
 ## lapply applies a function to each object in a list, and returns a
@@ -164,7 +164,6 @@ calcGrade <-function(x) {
 
 
 # 3. Use the 'sapply' function to find the mean for each element in the list below:
-
 info <- list(ages = c(19,21,20,20,19,19), heights = c(67,65, 69, 66,68))
 info
 
