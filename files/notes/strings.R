@@ -124,6 +124,16 @@ grepl("network", strings)
 #   https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
 ##############################################################################
 
+
+########################################################################
+# The website https://regex101.com/ can be used to test regular
+# expressions. Note that on the website, all double slashes in R should
+# be replaced with a single slash (e.g., //b would be /b)
+# Example: cat(paste(strings, collapse = "\n"))
+########################################################################
+
+
+
 # strings that contain "network"
 grep("network", strings, value = TRUE)
 
@@ -147,9 +157,8 @@ grep("[[:digit:]]", strings, value = TRUE)
 grep("([[:digit:]])|(\\bcomputer\\b)", strings, value = TRUE)
 
 
-# strings that contain two alphabetical characters separated by a space, tab, or newline
-# Note that \\s can be used instead of [[:space:]]
-grep("[[:alpha:]][[:space:]][[:alpha:]]", strings, value = TRUE)
+# strings that contain two alphabetical characters separated by a space
+grep("[[:alpha:]] [[:alpha:]]", strings, value = TRUE)
 
 # strings containing 7 characters, followed by a blank space and "science"
 grep(".{7} science", strings, value = TRUE)
@@ -222,14 +231,5 @@ str_extract_all(text, "^.*?\\.")
 ########################################################################
 
 strsplit(strings, " ") # split each string by a blank space (" ")
-
-
-########################################################################
-# The website https://regex101.com/ can be used to test regular
-# expressions. Note that on the website, all double dashes in R should
-# be replaced with a single dash (e.g., //b would be /b)
-# Example: cat(paste(strings, collapse = "\n"))
-########################################################################
-
 
 
