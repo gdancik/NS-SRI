@@ -3,7 +3,7 @@ layout: page
 title: Data Files and Links 
 permalink: /data/
 order: 2
-exclude_from_nav: true
+exclude_from_nav: false
 ---
 
 * Princess Bride Files
