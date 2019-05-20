@@ -10,6 +10,7 @@ exclude_from_nav: true
     * [The Princess Bride Edge List]({{ site.baseurl }}/files/PrincessBride_EdgeList.csv)
     * [The Princess Bride Adjacency Matrix]({{ site.baseurl }}/files/PrincessBrideAdjacency.xlsx)
     * [The Princess Bride Script]({{ site.baseurl }}/files/PrincessBride.txt)
+{% comment %}
 * Movie scripts
     * [The Internet Movie Script Database](http://www.imsdb.com/)
     * [Awesome Film](http://www.awesomefilm.com/)
@@ -18,6 +19,5 @@ exclude_from_nav: true
 * Free e-books
     * [Project Gutenberg](https://www.gutenberg.org/)
 
-{% comment %}
 * [The Princess Bride Gephi File](http://media.moviegalaxies.com/gexf/652.gexf)
 {% endcomment %}
